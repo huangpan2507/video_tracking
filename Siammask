@@ -1,0 +1,37 @@
+ https://github.com/foolwood/SiamMask
+
+一 .
+   遇到的问题：在issues中均有，其中因为远程登录服务器无法可视化，导致运行失败。问题为： cannot connect to X server #6
+更改 demo.py 如下：
+
+1.改动一
+Test on tennis, you can save the results to the local, like this
+
+46 try:
+47 '''
+48 init_rect = cv2.selectROI('SiamMask', ims[0], False, False)
+49 x, y, w, h = init_rect
+50 '''
+51 x, y, w, h = 300, 110, 165, 250
+
+69 '''
+70 cv2.polylines(im, [np.int0(location).reshape((-1, 1, 2))], True, (0, 255, 0), 3)
+71 cv2.imshow('SiamMask', im)
+72 key = cv2.waitKey(1)
+73 if key > 0:
+74 break
+75 '''
+76 ##chegf write
+77 name = './output/' + str(f).zfill(5) + '.jpg'
+78 cv2.imwrite(name, im)
+
+2. 并且注释掉 该行
+  cv2.namedWindow("SiamMask", cv2.WND_PROP_FULLSCREEN)
+
+3. 在SiamMask/experiments/siammask_sharp/ 下新建 output  文件夹
+
+解决问题！
+
+二.
+   其他的什么找不到文件 则是没有将环境路径加到环境变量中
+   export  PYTHONPATH=$PWD:$PYTHONPATH  就好了
